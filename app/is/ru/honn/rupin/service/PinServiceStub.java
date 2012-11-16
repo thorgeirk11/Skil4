@@ -18,6 +18,11 @@ public class PinServiceStub implements PinService {
     int BoardIdMax = 0;
     int PinIdMax = 0;
 
+    @Override
+    public Board getBoard(long id) {
+        return new Board();
+    }
+
     PinServiceStub() {
         try {
             signUpUser("ari", "asdasd", "asdasd", "asdasd");
