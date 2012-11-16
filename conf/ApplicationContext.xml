@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="PinService" class="is.ru.honn.rupin.service.PinServiceStub"></bean>
+    <!--<bean id="userService" class="is.ru.honn.rupin.service.UserServiceData">
+        <property name="userDataGateway" ref="userDataGateway"/>
+    </bean>
+
+    <bean id="pinService" class="is.ru.honn.rupin.service.PinServiceData">
+        <property name="pinDataGateway" ref="pinDataGateway"/>
+        <property name="boardDataGateway" ref="boardDataGateway"/>
+    </bean>
+
+    <bean id="userDataGateway" class="is.ru.honn.rupin.data.UserData">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="boardDataGateway" class="is.ru.honn.rupin.data.BoardData">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="pinDataGateway" class="is.ru.honn.rupin.data.PinData">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver"/>
+        <property name="url" value="jdbc:jtds:sqlserver://hrnem.ru.is:1433"/>
+        <property name="username" value="###"/>
+        <property name="password" value="###"/>
+    </bean>
+-->
+</beans>
+

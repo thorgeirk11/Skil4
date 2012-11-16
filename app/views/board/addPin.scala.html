@@ -1,0 +1,32 @@
+@(Board: is.ru.honn.rupin.domain.Board, pinForm: Form[is.ru.honn.rupin.domain.Pin])
+@title = {
+Add Pin on Board
+}
+@import helper._
+@import helper.twitterBootstrap._
+@main(title, nav = "Add pin on board") {
+    @if(pinForm.hasErrors) { <p>Failed to add pin</p> }
+
+    @helper.form(action = routes.BoardController.addPinSubmit(Board.getId()) ) {
+    <fieldset>
+        <legend>Pin:</legend>
+        @inputText(
+            pinForm("link"),
+            '_label -> "Link"
+        )
+        @inputText(
+            pinForm("description"),
+            '_label -> "Description"
+        )
+        @inputText(
+            pinForm("image"),
+            '_label -> "ImageUrl"
+        )
+    </fieldset>
+
+    <div class="actions">
+        <input type="submit" class="btn primary" value="Add Pin">
+        <a href="@routes.BoardController.board(Board.getId())" class="btn">Cancel</a>
+    </div>
+    }
+}

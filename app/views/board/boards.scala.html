@@ -1,0 +1,20 @@
+@(boards: List[is.ru.honn.rupin.domain.Board])
+@title = {
+All boards
+}
+@main(title, nav = "Board Page") {
+    @boards.map { b =>
+        <div class="board">
+            <h2>@b.getName()</h2>
+            <h3>@b.getCategory()</h3>
+            <p>The pins on this board:</p>
+            @b.getPins().map { pin =>
+            <div class="pins">
+                <p>@pin.getDescription()</p>
+                <a href="@pin.getLink()">link</a>
+                <img src="@pin.getImage()" alt="pin Image"/>
+            </div>
+            }
+        </div>
+    }
+}

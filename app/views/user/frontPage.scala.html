@@ -1,0 +1,25 @@
+@(boards: List[is.ru.honn.rupin.domain.Board])
+@import is.ru.honn.rupin.domain._
+@title = {
+Front Page
+}
+
+@main(title, nav = "Front Page") {
+@boards.map { b =>
+<div class="board">
+    <h2><a href="@routes.BoardController.board(b.getId())"> @b.getName()</a></h2>
+
+    <h3>@b.getCategory()</h3>
+
+    <p>The pins on this board:</p>
+    @b.getPins().map { pin =>
+    <div class="pin">
+        <p>@pin.getDescription()</p>
+        <a href="@pin.getLink()">link</a>
+        <img src="@pin.getImage()" alt="pin Image"/>
+    </div>
+    }
+    <div id="AddPin"><a href="board"></a></div>
+</div>
+}
+}

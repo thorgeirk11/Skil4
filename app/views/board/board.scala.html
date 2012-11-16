@@ -1,0 +1,18 @@
+@(board: is.ru.honn.rupin.domain.Board)
+@title = {
+@board.getName()
+}
+@main(title, nav = "Board Page") {
+    <div class="board">
+        <h2>@board.getName()</h2>
+        <h3>@board.getCategory()</h3>
+        <p>The pins on this board:</p>
+        @board.getPins().map { pin =>
+        <div class="pins">
+            <p>@pin.getDescription()</p>
+            <a href="@pin.getLink()">link</a>
+            <img src="@pin.getImage()" alt="pin Image"/>
+        </div>
+        }
+    </div>
+}

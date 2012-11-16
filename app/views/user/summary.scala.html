@@ -1,0 +1,11 @@
+@(user: is.ru.honn.rupin.domain.User)
+
+@main(Html("Account created!"), nav = "signup") {
+    
+    <h2>Your account:</h2>
+    <p>Name: @user.getName()</p>
+    <p>Username: @user.getUsername()</p>
+    <p>Email: @user.getEmail()</p>
+
+    Go here to: <a href="@routes.UserController.login">Login</a>
+}
