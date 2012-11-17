@@ -1,7 +1,6 @@
 package is.ru.honn.rupin.data;
 
 import is.ru.honn.rupin.data.mappers.UserRowMapper;
-import is.ru.honn.rupin.domain.Gender;
 import is.ru.honn.rupin.domain.User;
 
 import java.sql.Statement;
@@ -9,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -107,21 +108,41 @@ public class UserData extends ContentDataGateWay implements UserDataMapper {
     }
 
     @Override
-    public User getFollowerOfUser(int userid) {
+    public Set<User> getFollowersOfUser(int userid) {
         if (con == null)
             OpenConnection(); //Opens a connection to the db if not connected.
         String query = "SELECT ru_users.* FROM ru_users " +
                 " inner join ru_followers on ru_followers.userID = ru_users.ID" +
-                " WHERE UserID = " + userid;
+                " WHERE ru_followers.UserWhoFollows = " + userid;
+        Set<User> set = new TreeSet<User>();
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next())
-                return new UserRowMapper().mapRow(rs, 42);//Meaning of life :)
+                set.add(new UserRowMapper().mapRow(rs, 42));//Meaning of life :)
         } catch (SQLException sqlex) {
             log.warning("Unable to get user by id '" + userid + "':\n" + sqlex.getMessage() + "\nSql Query:\n" + query);
         }
-        return null;
+        return set;
+    }
+
+    @Override
+    public Set<User> getUsersThatFollow(int userid) {
+        if (con == null)
+            OpenConnection(); //Opens a connection to the db if not connected.
+        String query = "SELECT ru_users.* FROM ru_users " +
+                " inner join ru_followers on ru_followers.userID = ru_users.ID" +
+                " WHERE ru_followers.UserID = " + userid;
+        Set<User> set = new TreeSet<User>();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next())
+                set.add(new UserRowMapper().mapRow(rs, 42));//Meaning of life :)
+        } catch (SQLException sqlex) {
+            log.warning("Unable to get user by id '" + userid + "':\n" + sqlex.getMessage() + "\nSql Query:\n" + query);
+        }
+        return set;
     }
 
     @Override
@@ -140,7 +161,7 @@ public class UserData extends ContentDataGateWay implements UserDataMapper {
             Number n = insertContent.executeAndReturnKey(parameters);
             return n.intValue();
         } catch (DataIntegrityViolationException divex) {
-            log.warning("Userid "+ useridFollowing +" is already following this userid: " + useridBeingFollowed + "'.");
+            log.warning("Userid " + useridFollowing + " is already following this userid: " + useridBeingFollowed + "'.");
         }
         return -1;
     }

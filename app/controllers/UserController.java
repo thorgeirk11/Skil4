@@ -1,19 +1,13 @@
 package controllers;
 
-import com.google.gson.Gson;
-import is.ru.honn.rupin.data.UserDataGateway;
 import is.ru.honn.rupin.domain.Board;
 import is.ru.honn.rupin.domain.User;
 import is.ru.honn.rupin.domain.UserAuthentication;
 import is.ru.honn.rupin.domain.UserRegistration;
-import is.ru.honn.rupin.service.PinService;
 import is.ru.honn.rupin.service.UsernameExistsException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import play.data.Form;
 import play.mvc.*;
 import views.html.*;
-import views.html.helper.form;
 import views.html.user.*;
 
 import java.util.ArrayList;
@@ -72,7 +66,7 @@ public class UserController extends ServiceController {
         }
         session().put(loginStr, "true");
         session().put("User", jsonParser.toJson(logedInUser, User.class));
-        return ok(index.render());
+        return index();
     }
 
     public static Result index() {

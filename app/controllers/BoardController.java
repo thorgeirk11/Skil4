@@ -1,6 +1,6 @@
 package controllers;
 
-import is.ru.honn.rupin.data.UserDataGateway;
+import is.ru.honn.rupin.data.BoardDataGateway;
 import is.ru.honn.rupin.domain.Board;
 import is.ru.honn.rupin.domain.Pin;
 import is.ru.honn.rupin.domain.User;

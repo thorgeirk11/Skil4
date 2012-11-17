@@ -2,34 +2,39 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="PinService" class="is.ru.honn.rupin.service.PinServiceStub"></bean>
-    <!--<bean id="userService" class="is.ru.honn.rupin.service.UserServiceData">
-        <property name="userDataGateway" ref="userDataGateway"/>
+    <!--<bean id="PinService" class="is.ru.honn.rupin.service.PinServiceStub"></bean>-->
+
+    <bean id="PinService" class="is.ru.honn.rupin.service.PinServiceData">
+        <property name="userDataMapper" ref="userDataMapper"/>
+        <property name="pinDataMapper" ref="pinDataMapper"/>
+        <property name="boardDataGateway" ref="boardDataMapper"/>
     </bean>
 
-    <bean id="pinService" class="is.ru.honn.rupin.service.PinServiceData">
-        <property name="pinDataGateway" ref="pinDataGateway"/>
-        <property name="boardDataGateway" ref="boardDataGateway"/>
-    </bean>
-
-    <bean id="userDataGateway" class="is.ru.honn.rupin.data.UserData">
+    <bean id="userDataMapper" class="is.ru.honn.rupin.data.UserData">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="boardDataGateway" class="is.ru.honn.rupin.data.BoardData">
+    <bean id="boardDataMapper" class="is.ru.honn.rupin.data.BoardData">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="pinDataGateway" class="is.ru.honn.rupin.data.PinData">
+    <bean id="pinDataMapper" class="is.ru.honn.rupin.data.PinData">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver"/>
-        <property name="url" value="jdbc:jtds:sqlserver://hrnem.ru.is:1433"/>
-        <property name="username" value="###"/>
-        <property name="password" value="###"/>
+        <property name="driverClassName">
+            <value>net.sourceforge.jtds.jdbc.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:jtds:sqlserver://hrnem.ru.is:1433</value>
+        </property>
+        <property name="username">
+            <value>hshgudnyg11</value>
+        </property>
+        <property name="password">
+            <value>ji6wb5</value>
+        </property>
     </bean>
--->
 </beans>
 

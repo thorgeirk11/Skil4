@@ -1,87 +1,131 @@
-/*package is.ru.honn.rupin.service;
+package is.ru.honn.rupin.service;
 
 import is.ru.honn.rupin.data.BoardDataGateway;
-import is.ru.honn.rupin.data.PinDataGateway;
-import is.ru.honn.rupin.data.UserDataGateway;
+import is.ru.honn.rupin.data.PinDataMapper;
+import is.ru.honn.rupin.data.UserDataMapper;
 import is.ru.honn.rupin.domain.Board;
 import is.ru.honn.rupin.domain.Pin;
 import is.ru.honn.rupin.domain.User;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
+import java.util.Set;
 
-public class PinServiceData implements PinService
-{
-  UserDataGateway userDataGateway;
-  BoardDataGateway boardDataGateway;
-  PinDataGateway pinDataGateway;
+public class PinServiceData implements PinService {
+    UserDataMapper userDataMapper;
+    BoardDataGateway boardDataGateway;
+    PinDataMapper pinDataMapper;
 
-  public PinServiceData()
-  {
-  }
-
-  public void setUserDataGateway(UserDataGateway userDataGateway)
-  {
-    this.userDataGateway = userDataGateway;
-  }
-
-  public void setBoardDataGateway(BoardDataGateway boardDataGateway)
-  {
-    this.boardDataGateway = boardDataGateway;
-  }
-
-  public void setPinDataGateway(PinDataGateway pinDataGateway)
-  {
-    this.pinDataGateway = pinDataGateway;
-  }
-
-  @Override
-  public Board getBoard(String username, String boardname)
-  {
-    return boardDataGateway.getBoard(username, boardname);
-  }
-
-  @Override
-  public List<Board> getBoards(String username)
-  {
-    return boardDataGateway.getBoards(username);
-  }
-
-  @Override
-  public Board createBoard(String username, String boardname, String category) throws UserNotFoundException
-  {
-    // Check the user
-    User user = userDataGateway.getUserByUsername(username);
-    if (user == null)
-      throw new UserNotFoundException();
-
-    // Get the board
-    Board board = new Board(boardname, category);
-    try
-    {
-      boardDataGateway.add(board, username);
-    } catch (DataAccessException daex)
-    {
-      return null;
+    public PinServiceData() {
     }
-    return board;
-  }
 
-  @Override
-  public Pin createPin(String username, String boardname, String link, String description) throws BoardNotFoundException
-  {
-    Board board = boardDataGateway.getBoard(username, boardname);
-    Pin pin = new Pin(link, description, null);
-    board.addPin(pin);
-    pinDataGateway.add(pin, username, boardname);
-    return pin;
-  }
+    public void setUserDataMapper(UserDataMapper userDataMapper) {
+        this.userDataMapper = userDataMapper;
+    }
 
-  @Override
-  public List<Pin> getPinsOnBoard(String username, String boardname)
-  {
-    List<Pin> pins = pinDataGateway.getPinsOnBoard(username, boardname);
-    return pins;
-  }
+    public void setBoardDataGateway(BoardDataGateway boardDataGateway) {
+        this.boardDataGateway = boardDataGateway;
+    }
+
+    public void setPinDataMapper(PinDataMapper pinDataMapper) {
+        this.pinDataMapper = pinDataMapper;
+    }
+
+    @Override
+    public Board getBoard(String username, String boardname) {
+        return boardDataGateway.getBoard(username, boardname);
+    }
+
+    @Override
+    public Board getBoard(long id) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<Board> getBoards(String username) {
+        return boardDataGateway.getBoards(username);
+    }
+
+    @Override
+    public Board createBoard(String username, String boardname, String category) throws UserNotFoundException {
+        // Check the user
+        User user = userDataMapper.getUserByUserName(username);
+        if (user == null)
+            throw new UserNotFoundException();
+
+        // Get the board
+        Board board = new Board(boardname, category);
+        try {
+            boardDataGateway.add(board);
+        } catch (DataAccessException daex) {
+            return null;
+        }
+        return board;
+    }
+
+    @Override
+    public Pin createPin(String username, String boardname, String link, String description) throws BoardNotFoundException {
+        Board board = boardDataGateway.getBoard(username, boardname);
+        Pin pin = new Pin(link, description, null);
+        board.addPin(pin);
+        pin.setBoard(board);
+        pinDataMapper.add(pin);
+        return pin;
+    }
+
+    @Override
+    public List<Pin> getPinsOnBoard(String username, String boardname) {
+        List<Pin> pins = pinDataMapper.getPins(username, boardname);
+        return pins;
+    }
+
+    @Override
+    public void likePin(int ID) {
+        return;
+    }
+
+    @Override
+    public Pin rePin(int pinID, int boardID) {
+        return pinDataMapper.getPin(pinID);
+    }
+
+    @Override
+    public User signUpUser(String name, String username, String password, String email) throws UsernameExistsException {
+        User u = new User(name, username, password, email);
+        if (userDataMapper.getUserByUserName(username) != null)
+            throw new UsernameExistsException();
+        userDataMapper.add(u);
+        return u;
+    }
+
+    @Override
+    public User login(String username, String password) {
+        User u = userDataMapper.getUserByUserName(username);
+        if (u != null && u.getPassword().equals(password))
+            return u;
+        return null;
+    }
+
+    @Override
+    public User getUser(String username) {
+        return userDataMapper.getUserByUserName(username);
+    }
+
+    @Override
+    public Set<User> usersThatFollow(String usernname) {
+        return userDataMapper.getUsersThatFollow(getUser(usernname).getId());
+    }
+
+    @Override
+    public Set<User> followersOfUser(String usernname) {
+        return userDataMapper.getFollowersOfUser(getUser(usernname).getId());
+    }
+
+    @Override
+    public User addFollower(String followerName, String userToFollow) {
+       int id =  userDataMapper.addFollower(getUser(followerName).getId(),getUser(userToFollow).getId());
+       if (id == -1)
+           return null;
+       return userDataMapper.getUserByID(id);
+    }
 }
-*/
