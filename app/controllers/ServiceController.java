@@ -1,6 +1,7 @@
 package controllers;
 
 import com.google.gson.Gson;
+import is.ru.honn.rupin.domain.User;
 import is.ru.honn.rupin.service.PinService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -23,4 +24,10 @@ public class ServiceController extends Controller {
         pinService = (PinService) ctx.getBean("PinService");
     }
 
+    public static User getSessionUser() {
+        String jsonString = session().get("User");
+        if (jsonString != null)
+            return jsonParser.fromJson(jsonString, User.class);
+        return null;
+    }
 }

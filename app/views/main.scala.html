@@ -1,5 +1,4 @@
 @(title: Html, nav: String = "")(content: Html)
-
 <!DOCTYPE html>
 
 <html>
@@ -10,14 +9,27 @@
         <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
     </head>
     <body>
-        
         <div class="topbar">
             <div class="fill">
                 <div class="container">
-                    <a class="brand" href="@routes.Application.index()">RuPin</a>&nbsp;
-                           <a href="@routes.SignUp.blank">Sign up</a>&nbsp;
-                           <a href="@routes.Session.loginForm">Login</a>&nbsp;
+                    <a class="brand" href="@routes.UserController.index()">RuPin</a>&nbsp;
+                           <a href="@routes.UserController.signUp()">Sign Up</a>&nbsp;
+                           <a href="@routes.UserController.login()">
+                            @if(ServiceController.getSessionUser() != null){
+                                LogOut
+                            } else {
+                                LogIn
+                            }
+                            </a>&nbsp;
+
+                            @if(ServiceController.getSessionUser() != null){
+                                <a href="@routes.BoardController.boards()">Boards</a>&nbsp;
+                            }
                 </div>
+                @if(ServiceController.getSessionUser() != null){
+                    <h3>Welcome @ServiceController.getSessionUser().getName()</h3>
+                }
+
             </div>
         </div>
 

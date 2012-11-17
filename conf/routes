@@ -17,7 +17,8 @@ POST    /login                      controllers.UserController.loginSubmit()
 GET     /frontpage                  controllers.UserController.index()
 
 #Board
-GET     /boards                     controllers.BoardController.boards(userName: String)
+GET     /myBoards                   controllers.BoardController.boards()
+GET     /boards/:userName           controllers.BoardController.boards(userName: String)
 GET     /board/:id                  controllers.BoardController.board(id: Long)
 
 #AddPin

@@ -8,21 +8,21 @@
 }
 
 @main(title, nav = "login") {
-
     @if(loginForm.hasErrors) { <p>Login failed!</p> }
-
     @helper.form(action = routes.UserController.loginSubmit) {
-        <fieldset>
-            <legend>Login</legend>
-          @inputText(
-              loginForm("username"),
-              '_label -> "Username"
-          )
-          @inputPassword(
-                loginForm("password"),
-                '_label -> "Password"
-          )
-        </fieldset>
+        @if(ServiceController.getSessionUser() == null){
+            <fieldset>
+                <legend>Login</legend>
+              @inputText(
+                  loginForm("username"),
+                  '_label -> "Username"
+              )
+              @inputPassword(
+                    loginForm("password"),
+                    '_label -> "Password"
+              )
+            </fieldset>
+        }
 
         <div class="actions">
             <input type="submit" class="btn primary" value="Login">

@@ -50,17 +50,19 @@ public class UserController extends ServiceController {
                 filledForm.reject("UsernameExistsException", "Username already exists Exception");
                 return badRequest(signupform.render(filledForm));
             }
+            session().put(loginStr, "true");
+            session().put("User", jsonParser.toJson(created, User.class));
             return ok(summary.render(created));
         }
 
     }
 
     public static Result login() {
-        return ok(loginform.render(loginForm));//form.render(loginForm));
+        session().clear();
+        return ok(loginform.render(loginForm));
     }
 
     public static Result loginSubmit() {
-        session().clear();
         Form<UserAuthentication> filledForm = loginForm.bindFromRequest();
         loadPinService();
         User logedInUser = pinService.login(filledForm.get().getUsername(), filledForm.get().getPassword());
@@ -85,12 +87,5 @@ public class UserController extends ServiceController {
             return ok(frontPage.render(boards));
         }
         return ok(index.render());
-    }
-
-    private static User getSessionUser() {
-        String jsonString = session().get("User");
-        if (jsonString != null)
-            return jsonParser.fromJson(jsonString, User.class);
-        return null;
     }
 }
