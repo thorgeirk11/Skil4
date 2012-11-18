@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class BoardController extends ServiceController {
     final static Form<Pin> addPinForm = form(Pin.class);
-    final static Form<Board> addBoardForm = form(Board.class);
 
     public static Result board(long id) {
         loadPinService();
