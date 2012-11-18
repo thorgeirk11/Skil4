@@ -75,9 +75,14 @@ public class UserData extends ContentDataGateWay implements UserDataMapper {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
+            User u = null;
             if (rs.next()) {
-                return new UserRowMapper().mapRow(rs, 1337);//just for the elites ;)
+                u = new UserRowMapper().mapRow(rs, 1337);//just for the elites ;)
             }
+            if (u == null)
+                return u;
+            u.addFollowers(getUsersThatFollow(u.getId()));
+            return u;
         } catch (SQLException sqlex) {
             log.warning("Unable to get user '" + userName + "':\n" + sqlex.getMessage() + "\nSql Query:\n" + query);
         } catch (Exception ex) {
@@ -99,8 +104,13 @@ public class UserData extends ContentDataGateWay implements UserDataMapper {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            if (rs.next())
-                return new UserRowMapper().mapRow(rs, 42);//Meaning of life :)
+            User u = null;
+            if (rs.next()) {
+                u = new UserRowMapper().mapRow(rs, 42);//Meaning of life ;)
+            }
+            if (u == null)
+                return u;
+            u.addFollowers(getUsersThatFollow(ID));
         } catch (SQLException sqlex) {
             log.warning("Unable to get user by id '" + ID + "':\n" + sqlex.getMessage() + "\nSql Query:\n" + query);
         }
@@ -113,7 +123,7 @@ public class UserData extends ContentDataGateWay implements UserDataMapper {
             OpenConnection(); //Opens a connection to the db if not connected.
         String query = "SELECT ru_users.* FROM ru_users " +
                 " inner join ru_followers on ru_followers.userID = ru_users.ID" +
-                " WHERE ru_followers.UserWhoFollows = " + userid;
+                " WHERE ru_followers.UserID = " + userid;
         Set<User> set = new TreeSet<User>();
         try {
             Statement stmt = con.createStatement();
@@ -132,7 +142,7 @@ public class UserData extends ContentDataGateWay implements UserDataMapper {
             OpenConnection(); //Opens a connection to the db if not connected.
         String query = "SELECT ru_users.* FROM ru_users " +
                 " inner join ru_followers on ru_followers.userID = ru_users.ID" +
-                " WHERE ru_followers.UserID = " + userid;
+                " WHERE ru_followers.UserWhoFollows = " + userid;
         Set<User> set = new TreeSet<User>();
         try {
             Statement stmt = con.createStatement();

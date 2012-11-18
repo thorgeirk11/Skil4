@@ -8,14 +8,18 @@ All boards
             <h2>@b.getName()</h2>
             <h3>@b.getCategory()</h3>
             <p>The pins on this board:</p>
-            @b.getPins().map { pin =>
-            <div class="pins">
-                <p>@pin.getDescription()</p>
-                <a href="@pin.getLink()">link</a>
-                <img src="@pin.getImage()" alt="pin Image"/>
-            </div>
-            }
-            <div id="AddPin"><a href="@routes.BoardController.addPin(b.getId())"></a></div>}
+            @displayPins(b.getPins())
+            <div id="AddPin"><a href="@routes.BoardController.addPin(b.getId())"></a></div>
+        </div>
+    }
+}
+
+@displayPins(pins: List[is.ru.honn.rupin.domain.Pin]) = {
+    @for(pin <- pins) {
+        <div class="pins">
+            <p>@pin.getDescription()</p>
+            <a href="@pin.getLink()">link</a>
+            <img src="@pin.getImage()" alt="pin Image"/>
         </div>
     }
 }

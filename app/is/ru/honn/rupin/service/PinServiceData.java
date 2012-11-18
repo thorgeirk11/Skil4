@@ -38,12 +38,18 @@ public class PinServiceData implements PinService {
 
     @Override
     public Board getBoard(long id) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Board b = boardDataGateway.getBoardByID((int) id);
+        b.setPins(getPinsOnBoard(b.getCreator().getUsername(), b.getName()));
+        return b;
     }
 
     @Override
     public List<Board> getBoards(String username) {
-        return boardDataGateway.getBoards(username);
+        List<Board> boards = boardDataGateway.getBoards(username);
+        for (Board b : boards) {
+            b.setPins(getPinsOnBoard(username, b.getName()));
+        }
+        return boards;
     }
 
     @Override
@@ -75,8 +81,7 @@ public class PinServiceData implements PinService {
 
     @Override
     public List<Pin> getPinsOnBoard(String username, String boardname) {
-        List<Pin> pins = pinDataMapper.getPins(username, boardname);
-        return pins;
+        return pinDataMapper.getPins(username, boardname);
     }
 
     @Override
@@ -123,9 +128,9 @@ public class PinServiceData implements PinService {
 
     @Override
     public User addFollower(String followerName, String userToFollow) {
-       int id =  userDataMapper.addFollower(getUser(followerName).getId(),getUser(userToFollow).getId());
-       if (id == -1)
-           return null;
-       return userDataMapper.getUserByID(id);
+        int id = userDataMapper.addFollower(getUser(followerName).getId(), getUser(userToFollow).getId());
+        if (id == -1)
+            return null;
+        return userDataMapper.getUserByID(id);
     }
 }

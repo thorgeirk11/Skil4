@@ -5,12 +5,12 @@ Front Page
 }
 
 @main(title, nav = "Front Page") {
-@Pins.map { p =>
+@Pins.map { pin =>
     <div class="pin">
         <p>@pin.getDescription()</p>
         <a href="@pin.getLink()">link</a>
         <img src="@pin.getImage()" alt="pin Image"/>
-        <a href="@routes.BoardController.board(b.getId())"> @p.board.getName()</a>
+        <a href="@routes.BoardController.board(pin.getBoard().getId())"> @pin.getBoard().getName()</a>
     </div>
     }
 }

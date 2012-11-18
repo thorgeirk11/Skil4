@@ -1,9 +1,6 @@
 package controllers;
 
-import is.ru.honn.rupin.domain.Board;
-import is.ru.honn.rupin.domain.User;
-import is.ru.honn.rupin.domain.UserAuthentication;
-import is.ru.honn.rupin.domain.UserRegistration;
+import is.ru.honn.rupin.domain.*;
 import is.ru.honn.rupin.service.UsernameExistsException;
 import play.data.Form;
 import play.mvc.*;
@@ -74,11 +71,12 @@ public class UserController extends ServiceController {
         if (logStatus != null && logStatus.equals("true") && getSessionUser() != null) {
             loadPinService();
             User user = getSessionUser();
-            ArrayList<Board> boards = new ArrayList<Board>();
+            ArrayList<Pin> pins = new ArrayList<Pin>();
             for (User u : user.getFollowers()) {
-                boards.addAll(pinService.getBoards(u.getUsername()));
+                for (Board b : pinService.getBoards(u.getUsername()))
+                    pins.addAll(b.getPins());
             }
-            return ok(frontPage.render(boards));
+            return ok(frontPage.render(pins));
         }
         return ok(index.render());
     }

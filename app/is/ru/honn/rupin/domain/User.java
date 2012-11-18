@@ -1,5 +1,6 @@
 package is.ru.honn.rupin.domain;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -82,6 +83,9 @@ public class User implements Comparable<User>  {
 
     public void addFollower(User follower) {
         followers.add(follower);
+    }
+    public void addFollowers(Collection<User> followers) {
+        this.followers.addAll(followers);
     }
 
     @Override
