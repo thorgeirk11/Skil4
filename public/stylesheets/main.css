@@ -1,0 +1,99 @@
+#board .pin img
+{
+    float: right;
+    max-width: 120px;
+    margin-right: 5px;
+    max-height:120px;
+}
+#board .pin
+{
+    border-bottom: 1px solid gray;
+    padding-bottom: 4%;
+    margin-bottom: 4%;
+    width: 100%;
+    float: left;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+#board
+{
+    width: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;    
+}
+
+#board h3
+{
+    float: left;
+}
+#board .AddPin
+{
+    float: right;
+}
+
+
+.pin
+{
+    border-bottom: 1px solid gray;
+    padding-bottom: 4px;
+    margin-bottom: 2%;
+    width: 45%;
+    float: left;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.pin img
+{
+    float: right;
+    width: 60px;
+    margin-right: 5px;
+}
+
+.pin p
+{
+    margin-left: 8px;
+}
+
+.pin a
+{
+    float: left;
+    clear: left;
+    margin-left: 8px;
+}
+
+.board
+{
+    width: 45%;
+    float: left;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
+
+.board .pin
+{
+    float: left;
+    clear: right;
+    width: 95%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.board h2
+{
+    float: left;
+    clear: right;
+}
+
+.board h3
+{
+    float: right;
+}
+
+.board .AddPin
+{
+    float: right;
+}

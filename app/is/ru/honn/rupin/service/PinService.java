@@ -17,7 +17,7 @@ public interface PinService {
             throws UserNotFoundException;
 
     public Pin createPin(String username, String boardname,
-                         String link, String description)
+                         String link, String description, String ImageUrl)
             throws BoardNotFoundException;
 
     public List<Pin> getPinsOnBoard(String username, String boardname);

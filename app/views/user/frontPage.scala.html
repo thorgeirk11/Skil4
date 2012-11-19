@@ -5,12 +5,13 @@ Front Page
 }
 
 @main(title, nav = "Front Page") {
+<script src="@routes.Assets.at("javascripts/frontpage.js")" type="text/javascript"></script>
 @Pins.map { pin =>
     <div class="pin">
-        <p>@pin.getDescription()</p>
-        <a href="@pin.getLink()">link</a>
         <img src="@pin.getImage()" alt="pin Image"/>
-        <a href="@routes.BoardController.board(pin.getBoard().getId())"> @pin.getBoard().getName()</a>
+        <p>@pin.getDescription()</p>
+        <a class="link" href="@pin.getLink()">Pin Link</a>
+        <a class="board" href="@routes.BoardController.board(pin.getBoard().getId())">Board name: @pin.getBoard().getName()</a>
     </div>
     }
 }

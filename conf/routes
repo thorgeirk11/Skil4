@@ -17,13 +17,13 @@ POST    /login                      controllers.UserController.loginSubmit()
 GET     /frontpage                  controllers.UserController.index()
 
 #Board
-GET     /myBoards                   controllers.BoardController.boards()
+GET     /myBoards                   controllers.BoardController.myBoards()
+GET     /board/:id                  controllers.BoardController.board(id: java.lang.Integer)
 GET     /boards/:userName           controllers.BoardController.boards(userName: String)
-GET     /board/:id                  controllers.BoardController.board(id: Long)
 
 #AddPin
-GET     /board/addPin/:id            controllers.BoardController.addPin(id: Long)
-POST    /board/addPinSubmit/:id      controllers.BoardController.addPinSubmit(id: Long)
+GET     /board/addPin/:id            controllers.BoardController.addPin(id: java.lang.Integer)
+POST    /board/addPinSubmit/:id      controllers.BoardController.addPinSubmit(id: java.lang.Integer)
 
 
 # Map static resources from the /public folder to the /assets URL path

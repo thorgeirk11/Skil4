@@ -7,19 +7,18 @@ All boards
         <div class="board">
             <h2>@b.getName()</h2>
             <h3>@b.getCategory()</h3>
-            <p>The pins on this board:</p>
             @displayPins(b.getPins())
-            <div id="AddPin"><a href="@routes.BoardController.addPin(b.getId())"></a></div>
+            <a class="AddPin" href="@routes.BoardController.addPin(b.getId())">Add Pin</a>
         </div>
     }
 }
 
 @displayPins(pins: List[is.ru.honn.rupin.domain.Pin]) = {
     @for(pin <- pins) {
-        <div class="pins">
+        <div class="pin">
+            <img src="@pin.getImage()" alt="pin Image"/>
             <p>@pin.getDescription()</p>
             <a href="@pin.getLink()">link</a>
-            <img src="@pin.getImage()" alt="pin Image"/>
         </div>
     }
 }
