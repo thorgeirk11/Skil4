@@ -6,12 +6,15 @@ import is.ruframework.data.RuDataAccess;
 import java.util.Set;
 
 /**
+ *
+ * An interface that maps to the ru_user table and provides certain interaction to the table.
+ *
  * Created with IntelliJ IDEA.
  * User: Sir.Thorgeir lap
  * Date: 16.10.2012
  * Time: 12:14
  *
- * @author Þorgeir Auðunn Karlsson.
+ * @author Thorgeir Audunn Karlsson and Gudny Bjork Gunnarsdottir.
  */
 public interface UserDataMapper extends RuDataAccess{
 
@@ -37,13 +40,28 @@ public interface UserDataMapper extends RuDataAccess{
      */
     public User getUserByID(int ID);
 
-    //TODO Comment
+    /**
+     * Returns a collection of users that the user with a specific userid follows
+     * @param userid, id of the user that is following
+     * @return Set<User>, a collection of users
+     */
     public Set<User> getFollowersOfUser(int userid);
 
-    //TODO Comment
+    /**
+     * Returns a collection of users that are following a user with a specific userid.
+     * @param userid, id of the user that is followed
+     * @return Set<Users>, a collection of users
+     */
     public Set<User> getUsersThatFollow(int userid);
 
-    //TODO Comment
+    /**
+     * Adds a user (with the id userBeingFollowed) to the collection of followers that the user (with
+     * the id useridFolling) is following. Returns the id of the tuple in ru_followers table where the user
+     * was added.
+     * @param useridFollowing, user that is adding the follower to his collection of followers
+     * @param useridBeingFollowed, user that is to be followed.
+     * @return int, returns -1 if the user is already being followed or failed to add.
+     */
     public int addFollower(int useridFollowing, int useridBeingFollowed);
 
 }

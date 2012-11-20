@@ -6,7 +6,6 @@ import is.ru.honn.rupin.domain.Pin;
 import is.ru.honn.rupin.domain.User;
 import is.ru.honn.rupin.domain.UserRegistration;
 import is.ru.honn.rupin.service.BoardNotFoundException;
-import org.codehaus.jackson.JsonNode;
 import play.mvc.*;
 import play.data.*;
 import views.html.board.addPin;

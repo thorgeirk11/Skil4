@@ -16,18 +16,25 @@ import java.sql.Statement;
 import java.util.*;
 
 /**
+ *
+ * A class that implements the PinDataMapper. Maps data to the ru_pin table.
+ *
  * Created with IntelliJ IDEA.
  * User: Sir.Thorgeir lap
  * Date: 16.10.2012
  * Time: 19:03
  *
- * @author Þorgeir Auðunn Karlsson.
+ * @author Thorgeir Audunn Karlsson and Gudny Bjork Gunnarsdottir.
  */
 
 public class PinData extends ContentDataGateWay implements PinDataMapper {
     public PinData() {
     }
 
+    /**
+     * Sets dataSource to the corresponding dataSource
+     * @param dataSource
+     */
     public PinData(DataSource dataSource) {
         setDataSource(dataSource);
     }
