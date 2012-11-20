@@ -16,9 +16,12 @@
 @displayPins(pins: List[is.ru.honn.rupin.domain.Pin]) = {
     @for((p,i) <- pins.zipWithIndex) {
         <div class="pin @if(i%2==0){left}else{right}">
-            <img src="@p.getImage()" alt="pin Image"/>
+            <img src="@p.getImage()" class="img-polaroid" alt="pin Image"/>
             <p>@p.getDescription()</p>
             <a href="@p.getLink()">link</a>
+            <span class="hidden pinID">@p.getId()</span>
+            <span class="like btn btn-small btn-primary">@if(p.getLikes().contains(ServiceController.getSessionUser())){UnLike}else{Like}</span>
+            <span class='likeText'>@p.getLikes().size() people like this</span>
             <span>posted: @p.getCreated()</span>
         </div>
     }

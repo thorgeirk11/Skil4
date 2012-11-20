@@ -93,7 +93,7 @@ public class User implements Comparable<User>  {
         if (obj.getClass() == UserAuthentication.class)
             return ((UserAuthentication) obj).getUsername().equals(this.getUsername()) &&
                     ((UserAuthentication) obj).getPassword().equals(this.getPassword());
-        return obj.getClass() != User.class && ((User) obj).getId() == this.id;
+        return obj.getClass() == User.class && ((User) obj).getId() == this.id;
     }
 
     @Override

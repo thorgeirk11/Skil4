@@ -111,6 +111,7 @@ public class UserData extends ContentDataGateWay implements UserDataMapper {
             if (u == null)
                 return u;
             u.addFollowers(getUsersThatFollow(ID));
+            return u;
         } catch (SQLException sqlex) {
             log.warning("Unable to get user by id '" + ID + "':\n" + sqlex.getMessage() + "\nSql Query:\n" + query);
         }

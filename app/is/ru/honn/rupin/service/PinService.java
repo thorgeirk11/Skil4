@@ -22,7 +22,7 @@ public interface PinService {
 
     public List<Pin> getPinsOnBoard(String username, String boardname);
 
-    public void likePin(int ID);
+    public Pin likePin(int userId, int pinId);
 
     public Pin rePin(int pinID, int boardID);
 

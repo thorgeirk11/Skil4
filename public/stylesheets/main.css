@@ -2,6 +2,7 @@
     float: left;
     padding: 1%;
 }
+
 .topbar h4 {
     float: right;
 }
@@ -11,6 +12,7 @@
     max-width: 120px;
     margin-right: 5px;
     max-height: 120px;
+    margin-bottom: 1%;
 }
 
 #board .pin {
@@ -38,21 +40,23 @@
     clear: right;
 }
 
-
 #board .AddPin {
     float: right;
     clear: left;
 }
+
 .pin.left {
     float: left;
     clear: left;
 }
+
 .pin.right {
     float: right;
-    clear:right;
+    clear: right;
 }
 
 .pin {
+    background: white;
     border-bottom: 1px solid gray;
     padding-bottom: 4px;
     margin-bottom: 2%;
@@ -63,9 +67,10 @@
 
 .pin img {
     float: right;
-    width: 60px;s
+    max-width: 80px;
     margin-right: 5px;
-    margin-left: 10px;
+    max-height: 80px;
+    margin-bottom: 1%;
 }
 
 .pin p {
@@ -83,7 +88,6 @@
     clear: right;
 }
 
-
 .board {
     width: 45%;
     float: left;
@@ -96,9 +100,10 @@
     float: left;
     clear: left;
 }
+
 .board.right {
     float: right;
-    clear:right;
+    clear: right;
 }
 
 .board .pin {
@@ -125,6 +130,11 @@
 .span14 {
     width: 90%;
 }
-#created{
+
+#created {
     font-size: 9px;
+}
+
+.hidden {
+    display: none;
 }

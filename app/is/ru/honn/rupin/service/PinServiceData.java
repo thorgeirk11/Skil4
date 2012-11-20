@@ -82,12 +82,24 @@ public class PinServiceData implements PinService {
 
     @Override
     public List<Pin> getPinsOnBoard(String username, String boardname) {
-        return pinDataMapper.getPins(username, boardname);
+        List<Pin> pins = pinDataMapper.getPins(username, boardname);
+        for (Pin p : pins)
+            for (int userId : pinDataMapper.getLikersIds(p.getId()))
+                p.addLike(userDataMapper.getUserByID(userId));
+        return pins;
     }
 
     @Override
-    public void likePin(int ID) {
-        return;
+    public Pin likePin(int userId, int pinId) {
+        User u = userDataMapper.getUserByID(userId);
+        if (u != null) {
+            Pin p = pinDataMapper.likePin(u, pinId);
+            for (Integer id : pinDataMapper.getLikersIds(pinId)) {
+                p.addLike(userDataMapper.getUserByID(id));
+            }
+            return p;
+        }
+        return null;
     }
 
     @Override

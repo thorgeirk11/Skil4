@@ -1,9 +1,11 @@
 package is.ru.honn.rupin.data;
 
 import is.ru.honn.rupin.domain.Pin;
+import is.ru.honn.rupin.domain.User;
 import is.ruframework.data.RuDataAccess;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -44,4 +46,8 @@ public interface PinDataMapper extends RuDataAccess{
      * @return Pin, if pin not found then returns null.
      */
     public Pin getPin(int ID);
+
+    public Pin likePin(User user, int pinID);
+
+    public Set<Integer> getLikersIds(int PinID);
 }

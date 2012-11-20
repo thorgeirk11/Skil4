@@ -6,6 +6,7 @@ import is.ru.honn.rupin.domain.Pin;
 import is.ru.honn.rupin.domain.User;
 import is.ru.honn.rupin.domain.UserRegistration;
 import is.ru.honn.rupin.service.BoardNotFoundException;
+import org.codehaus.jackson.JsonNode;
 import play.mvc.*;
 import play.data.*;
 import views.html.board.addPin;
@@ -46,7 +47,9 @@ public class BoardController extends ServiceController {
     public static Result addPin(Integer boardId) {
         if (getSessionUser() != null) {
             loadPinService();
-            return ok(addPin.render(pinService.getBoard(boardId), addPinForm));
+            Board b = pinService.getBoard(boardId);
+            if (b.getCreator().equals(getSessionUser()))
+                return ok(addPin.render(b, addPinForm));
         }
         return badRequest();
     }
@@ -73,6 +76,16 @@ public class BoardController extends ServiceController {
                 return badRequest(addPin.render(pinService.getBoard(boardId), filledForm));
             }
             return board(boardId);
+        }
+        return badRequest();
+    }
+
+    public static Result likePin(Integer pinId) {
+        User u = getSessionUser();
+        if (u != null) {
+            loadPinService();
+            Pin p = pinService.likePin(u.getId(),pinId);
+            return ok(jsonParser.toJson(p.getLikes().size()));
         }
         return badRequest();
     }

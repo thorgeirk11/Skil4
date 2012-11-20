@@ -7,53 +7,52 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+        <link rel="stylesheet" media="screen" href="http://code.jquery.com/ui/1.9.1/themes/redmond/jquery-ui.css">
+        <script src="@routes.Assets.at("javascripts/jquery-1.8.3.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/main.js")" type="text/javascript"></script>
     </head>
     <body>
+    <div class="container">
         <div class="topbar">
             <div class="fill">
-                <div class="container">
-                    <a class="brand" href="@routes.UserController.index()">RuPin</a>
-                    <a href="@routes.UserController.signUp()">Sign Up</a>
-                    <a href="@routes.UserController.login()">
-                    @if(ServiceController.getSessionUser() != null){
-                        LogOut
-                    } else {
-                        LogIn
+                <ul class="nav">
+                    <li class="divider-vertical"><a href="@routes.UserController.index()">RuPin</a></li>
+                    <li class="divider-vertical"><a href="@routes.UserController.signUp()">Sign Up</a></li>
+                    <li class="divider-vertical"><a href="@routes.UserController.login()">@if(ServiceController.getSessionUser() != null){LogOut}else{LogIn}</a></li>
+                    @if(ServiceController.getSessionUser() != null) {
+                    <li class="divider-vertical"><a href="@routes.BoardController.myBoards()">Boards</a></li>
                     }
-                    </a>
-
-                    @if(ServiceController.getSessionUser() != null){
-                        <a href="@routes.BoardController.myBoards()">Boards</a>
-                        <h4>Welcome @ServiceController.getSessionUser().getName()</h3>
-                    }
-                </div>
+                </ul>
+            @if(ServiceController.getSessionUser() != null){
+                <h4>Welcome @ServiceController.getSessionUser().getName()</h3>
+            }
             </div>
         </div>
+     </div>
 
-        <div class="container">
+    <div class="container">
 
-            <div class="content">
-                
-                <div class="page-header">
-                    <h1>@title</h1>
-                </div>
+        <div class="content">
 
-                <div class="row">
-                    <div class="span14">
-                        @content
-                    </div>
-                </div>
-                
+            <div class="page-header">
+                <h1>@title</h1>
             </div>
 
-            <footer>
-                <p>
-                    RuPin
-                </p>
-            </footer>
+            <div class="row">
+                <div class="span14">
+                    @content
+                </div>
+            </div>
 
         </div>
+
+        <footer>
+            <p>
+                RuPin
+            </p>
+        </footer>
+
+    </div>
         
     </body>
 </html>

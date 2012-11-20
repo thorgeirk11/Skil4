@@ -25,6 +25,8 @@ GET     /boards/:userName           controllers.BoardController.boards(userName:
 GET     /board/addPin/:id            controllers.BoardController.addPin(id: java.lang.Integer)
 POST    /board/addPinSubmit/:id      controllers.BoardController.addPinSubmit(id: java.lang.Integer)
 
+#likePin
+POST     /board/likePin/:id            controllers.BoardController.likePin(id: java.lang.Integer)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

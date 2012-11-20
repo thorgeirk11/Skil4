@@ -3,6 +3,9 @@ package is.ru.honn.rupin.data;
 
 import is.ru.honn.rupin.data.mappers.PinRowMapper;
 import is.ru.honn.rupin.domain.Pin;
+import is.ru.honn.rupin.domain.User;
+import is.ru.honn.rupin.service.UserNotFoundException;
+import is.ru.honn.rupin.service.UsernameExistsException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
@@ -36,6 +39,7 @@ public class PinData extends ContentDataGateWay implements PinDataMapper {
      * @param pin, the pin to be added to the db
      * @return int, if pin already exists then return -1
      */
+    @Override
     public int add(Pin pin) {
         if (con == null)
             OpenConnection(); //Opens a connection to the db if not connected.
@@ -52,7 +56,7 @@ public class PinData extends ContentDataGateWay implements PinDataMapper {
         try {
             returnKey = insertContent.executeAndReturnKey(parameters).intValue();
         } catch (DataIntegrityViolationException divex) {
-            log.warning("Duplicate entry, Pin on board '" + pin.getBoard().getName()+"' already exists.");
+            log.warning("Duplicate entry, Pin on board '" + pin.getBoard().getName() + "' already exists.");
         }
         return returnKey;
     }
@@ -64,6 +68,7 @@ public class PinData extends ContentDataGateWay implements PinDataMapper {
      * @param boardName, name of the pin to be returned
      * @return List<Pin>, if pins not found then returns empty list.
      */
+    @Override
     public List<Pin> getPins(String userName, String boardName) {
         return getPins(new BoardData(getDataSource()).getBoardID(userName, boardName));
     }
@@ -74,6 +79,7 @@ public class PinData extends ContentDataGateWay implements PinDataMapper {
      * @param boardID, the id of the board to be returned
      * @return List<Pin>, if pins not found then return empty list.
      */
+    @Override
     public List<Pin> getPins(int boardID) {
         if (con == null)
             OpenConnection(); //Opens a connection to the db if not connected.
@@ -97,7 +103,7 @@ public class PinData extends ContentDataGateWay implements PinDataMapper {
      * @param ID, id of the pin to be returned
      * @return Pin, if pin not found then returns null.
      */
-
+    @Override
     public Pin getPin(int ID) {
         if (con == null)
             OpenConnection(); //Opens a connection to the db if not connected.
@@ -114,4 +120,52 @@ public class PinData extends ContentDataGateWay implements PinDataMapper {
         }
         return null;
     }
+
+    @Override
+    public Pin likePin(User user, int PinID) {
+        Pin p = getPin(PinID);
+        if (p != null) {
+            if (!getLikersIds(PinID).contains(user.getId())) {
+                p.addLike(user);
+                if (con == null) OpenConnection(); //Opens a connection to the db if not connected.
+                SimpleJdbcInsert insertContent = new SimpleJdbcInsert(this.getDataSource()).withTableName("ru_pin_likes").usingGeneratedKeyColumns("ID");
+                Map<String, Object> parameters = new HashMap<String, Object>(2);
+                parameters.put("pinID", p.getId());
+                parameters.put("userID", user.getId());
+                if (insertContent.executeAndReturnKey(parameters).intValue() == -1)
+                    return null;
+            } else {
+                p.removeLike(user);
+                if (con == null) OpenConnection(); //Opens a connection to the db if not connected.
+                try {
+                    Statement stmt = con.createStatement();
+                    stmt.execute("delete FROM ru_pin_likes WHERE pinID = " + p.getId() + " and userID = " + user.getId());
+                } catch (SQLException sqlex) {
+                    log.warning("Unable to remove like for pinId: '" + PinID + "' and userId:'" + user.getId() + "':\n" + sqlex.getMessage() + "\nSql Statement:\n" + sqlex.getSQLState());
+                } catch (Exception ex) {
+                    log.warning("Unable to remove like for pinId: '" + PinID + "' and userId:'" + user.getId() + "':\n" + ex.getMessage());
+                }
+            }
+        }
+        return p;
+    }
+
+    @Override
+    public Set<Integer> getLikersIds(int PinID) {
+        if (con == null) OpenConnection(); //Opens a connection to the db if not connected.
+        Set<Integer> likeIds = new TreeSet<Integer>();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM ru_pin_likes WHERE PinID = " + PinID);
+            while (rs.next())
+                likeIds.add(rs.getInt("userID"));
+        } catch (SQLException sqlex) {
+            log.warning("Unable to get likes for Pin: '" + PinID + "':\n" + sqlex.getMessage() + "\nSql State:\n" + sqlex.getSQLState());
+        } catch (Exception ex) {
+            log.warning("Unable to get likes for Pin: '" + PinID + "':\n" + ex.getMessage());
+        }
+        return likeIds;
+    }
+
+
 }
