@@ -14,7 +14,6 @@ public class ServiceController extends Controller {
     protected static PinService pinService;
     protected static Logger log = Logger.getLogger(ServiceController.class.getName());
     protected static Gson jsonParser = new Gson();
-    protected static final String loginStr = "logIn";
 
     public void setPinService(PinService pinService) {
         this.pinService = pinService;

@@ -8,6 +8,8 @@ import views.html.*;
 import views.html.user.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class UserController extends ServiceController {
     final static Form<UserRegistration> signUpForm = form(UserRegistration.class);
@@ -41,7 +43,6 @@ public class UserController extends ServiceController {
                 filledForm.reject("UsernameExistsException", "Username already exists Exception");
                 return badRequest(signupform.render(filledForm));
             }
-            session().put(loginStr, "true");
             session().put("User", jsonParser.toJson(created, User.class));
             return ok(summary.render(created));
         }
@@ -61,21 +62,20 @@ public class UserController extends ServiceController {
             filledForm.reject("wrongCredentials", "The login you entered is incorrect.");
             return badRequest(loginform.render(filledForm));
         }
-        session().put(loginStr, "true");
         session().put("User", jsonParser.toJson(logedInUser, User.class));
         return index();
     }
 
     public static Result index() {
-        String logStatus = session().get(loginStr);
-        if (logStatus != null && logStatus.equals("true") && getSessionUser() != null) {
+        User user = getSessionUser();
+        if (user != null) {
             loadPinService();
-            User user = getSessionUser();
             ArrayList<Pin> pins = new ArrayList<Pin>();
             for (User u : user.getFollowers()) {
                 for (Board b : pinService.getBoards(u.getUsername()))
                     pins.addAll(b.getPins());
             }
+            Collections.sort(pins, Pin.CompareByCreated);
             return ok(frontPage.render(pins));
         }
         return ok(index.render());

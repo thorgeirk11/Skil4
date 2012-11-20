@@ -37,9 +37,10 @@ public class PinServiceData implements PinService {
     }
 
     @Override
-    public Board getBoard(long id) {
-        Board b = boardDataGateway.getBoardByID((int) id);
-        b.setPins(getPinsOnBoard(b.getCreator().getUsername(), b.getName()));
+    public Board getBoard(int id) {
+        Board b = boardDataGateway.getBoardByID(id);
+        if (b != null)
+            b.setPins(getPinsOnBoard(b.getCreator().getUsername(), b.getName()));
         return b;
     }
 

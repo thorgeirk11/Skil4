@@ -8,7 +8,7 @@ import java.util.Set;
 public interface PinService {
     public Board getBoard(String username, String boardname);
 
-    public Board getBoard(long id);
+    public Board getBoard(int id);
 
     public List<Board> getBoards(String username);
 

@@ -20,7 +20,9 @@ public class BoardController extends ServiceController {
     public static Result board(Integer id) {
         if (getSessionUser() != null) {
             loadPinService();
-            return ok(board.render(pinService.getBoard(id)));
+            Board b = pinService.getBoard(id);
+            if (b != null)
+                return ok(board.render(b));
         }
         return badRequest();
     }

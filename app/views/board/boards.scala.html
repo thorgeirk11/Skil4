@@ -1,10 +1,10 @@
 @(boards: List[is.ru.honn.rupin.domain.Board])
 @title = {
-All boards
+All your boards
 }
 @main(title, nav = "Board Page") {
-    @boards.map { b =>
-        <div class="board">
+    @for((b,i) <- boards.zipWithIndex) {
+        <div class="board @if(i%2==0){left}else{right}">
             <h2>@b.getName()</h2>
             <h3>@b.getCategory()</h3>
             @displayPins(b.getPins())
@@ -14,11 +14,12 @@ All boards
 }
 
 @displayPins(pins: List[is.ru.honn.rupin.domain.Pin]) = {
-    @for(pin <- pins) {
-        <div class="pin">
-            <img src="@pin.getImage()" alt="pin Image"/>
-            <p>@pin.getDescription()</p>
-            <a href="@pin.getLink()">link</a>
+    @for((p,i) <- pins.zipWithIndex) {
+        <div class="pin @if(i%2==0){left}else{right}">
+            <img src="@p.getImage()" alt="pin Image"/>
+            <p>@p.getDescription()</p>
+            <a href="@p.getLink()">link</a>
+            <span id="created">posted: @p.getCreated()</span>
         </div>
     }
 }

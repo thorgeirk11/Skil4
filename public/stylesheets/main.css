@@ -1,71 +1,90 @@
-#board .pin img
-{
+.topbar a {
+    float: left;
+    padding: 1%;
+}
+.topbar h4 {
+    float: right;
+}
+
+#board .pin img {
     float: right;
     max-width: 120px;
     margin-right: 5px;
-    max-height:120px;
+    max-height: 120px;
 }
-#board .pin
-{
+
+#board .pin {
     border-bottom: 1px solid gray;
-    padding-bottom: 4%;
-    margin-bottom: 4%;
+    padding-bottom: 2%;
+    margin-bottom: 2%;
     width: 100%;
     float: left;
     margin-left: 2%;
     margin-right: 2%;
 }
 
-#board
-{
-    width: 100%;
+#board {
     margin-left: 2%;
     margin-right: 2%;
-    margin-bottom: 2%;    
+    margin-bottom: 2%;
 }
 
-#board h3
-{
+#board h2 {
     float: left;
 }
-#board .AddPin
-{
+
+#board h3 {
     float: right;
+    clear: right;
 }
 
 
-.pin
-{
+#board .AddPin {
+    float: right;
+    clear: left;
+}
+.pin.left {
+    float: left;
+    clear: left;
+}
+.pin.right {
+    float: right;
+    clear:right;
+}
+
+.pin {
     border-bottom: 1px solid gray;
     padding-bottom: 4px;
     margin-bottom: 2%;
     width: 45%;
-    float: left;
     margin-left: 2%;
     margin-right: 2%;
 }
 
-.pin img
-{
+.pin img {
     float: right;
-    width: 60px;
+    width: 60px;s
     margin-right: 5px;
+    margin-left: 10px;
 }
 
-.pin p
-{
+.pin p {
     margin-left: 8px;
 }
 
-.pin a
-{
+.pin a {
     float: left;
     clear: left;
     margin-left: 8px;
 }
 
-.board
-{
+.pin span {
+    float: right;
+    clear: right;
+}
+
+
+.board {
     width: 45%;
     float: left;
     margin-left: 2%;
@@ -73,8 +92,16 @@
     margin-bottom: 2%;
 }
 
-.board .pin
-{
+.board.left {
+    float: left;
+    clear: left;
+}
+.board.right {
+    float: right;
+    clear:right;
+}
+
+.board .pin {
     float: left;
     clear: right;
     width: 95%;
@@ -82,18 +109,22 @@
     margin-right: 2%;
 }
 
-.board h2
-{
+.board h2 {
     float: left;
     clear: right;
 }
 
-.board h3
-{
+.board h3 {
     float: right;
 }
 
-.board .AddPin
-{
+.board .AddPin {
     float: right;
+}
+
+.span14 {
+    width: 90%;
+}
+#created{
+    font-size: 9px;
 }
