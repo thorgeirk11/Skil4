@@ -14,9 +14,26 @@ import views.html.board.boards;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * A controller that extends ServiceController and retrieves data from the Form and uses the pinService
+ * to retrieve data from the database.
+ *
+ * Created with IntelliJ IDEA.
+ * User: Sir.Thorgeir lap
+ * Date: 16.10.2012
+ * Time: 12:14
+ *
+ * @author Thorgeir Audunn Karlsson and Gudny Bjork Gunnarsdottir.
+ */
 public class BoardController extends ServiceController {
     final static Form<Pin> addPinForm = form(Pin.class);
 
+    /**
+     * Renders the board with the corresponding id to a view if it exists else return a badRequest
+     * @param id, the id of the board to be rendered
+     * @return Result, returns a View
+     */
     public static Result board(Integer id) {
         if (getSessionUser() != null) {
             loadPinService();
@@ -27,6 +44,12 @@ public class BoardController extends ServiceController {
         return badRequest();
     }
 
+    /**
+     * Renders the board belonging to a user with corresponding userName if the user exists, else
+     * return a badRequest
+     * @param userName, username of the user owning the board
+     * @return Result, returns a View
+     */
     public static Result boards(String userName) {
         if (getSessionUser() != null) {
             loadPinService();
@@ -35,6 +58,10 @@ public class BoardController extends ServiceController {
         return badRequest();
     }
 
+    /**
+     * Renders all boards belonging to a user
+     * @return Result, returns a View
+     */
     public static Result myBoards() {
         if (getSessionUser() != null) {
             loadPinService();
@@ -43,16 +70,26 @@ public class BoardController extends ServiceController {
         return badRequest();
     }
 
+    /**
+     * Renders a pin created from the view to a board with the corresponding boardId if the
+     * user exist else return a badRequest.
+     * @param boardId
+     * @return Result, returns a View
+     */
     public static Result addPin(Integer boardId) {
         if (getSessionUser() != null) {
             loadPinService();
-            Board b = pinService.getBoard(boardId);
-            if (b.getCreator().equals(getSessionUser()))
-                return ok(addPin.render(b, addPinForm));
+            return ok(addPin.render(pinService.getBoard(boardId), addPinForm));
         }
         return badRequest();
     }
 
+    /**
+     * Adds the pin from the Form to the PinService, if the pin's link, descriptin are declared or any other
+     * errors did not occur, else return a badRequest
+     * @param boardId, id of the board to be added on
+     * @return Result, returns a View
+     */
     public static Result addPinSubmit(Integer boardId) {
         User u = getSessionUser();
         if (u != null) {
@@ -75,16 +112,6 @@ public class BoardController extends ServiceController {
                 return badRequest(addPin.render(pinService.getBoard(boardId), filledForm));
             }
             return board(boardId);
-        }
-        return badRequest();
-    }
-
-    public static Result likePin(Integer pinId) {
-        User u = getSessionUser();
-        if (u != null) {
-            loadPinService();
-            Pin p = pinService.likePin(u.getId(),pinId);
-            return ok(jsonParser.toJson(p.getLikes().size()));
         }
         return badRequest();
     }
