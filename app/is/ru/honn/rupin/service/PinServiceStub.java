@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class PinServiceStub implements PinService {
+public abstract class PinServiceStub implements PinService {
     protected List<Board> boards = new ArrayList<Board>();
     protected List<User> users = new ArrayList<User>();
     int UserIdMax = 0;
@@ -19,17 +19,17 @@ public class PinServiceStub implements PinService {
     int PinIdMax = 0;
 
     @Override
-    public Board getBoard(long id) {
+    public Board getBoard(int id) {
         return new Board();
     }
 
     PinServiceStub() {
         try {
-            signUpUser("ari", "asdasd", "asdasd", "asdasd");
-            createBoard("asdasd","Board1","tech");
-            createBoard("asdasd","Board2","Stuff");
-            createPin("asdasd","Board2","Stuff", "tech"); //String username, String boardname, String link, String description
-            createPin("asdasd", "Board1", "Stuff", "tech");
+            //signUpUser("ari", "asdasd", "asdasd", "asdasd");
+            //createBoard("asdasd","Board1","tech");
+            //createBoard("asdasd","Board2","Stuff");
+            //createPin("asdasd","Board2","Stuff", "tech"); //String username, String boardname, String link, String description
+            //createPin("asdasd", "Board1", "Stuff", "tech");
         } catch (Exception ex) {
         }
     }
@@ -110,7 +110,7 @@ public class PinServiceStub implements PinService {
     }
 
     @Override
-    public Pin createPin(String username, String boardname, String link, String description) throws BoardNotFoundException {
+    public Pin createPin(String username, String boardname, String link, String description, String ImageUrl) throws BoardNotFoundException {
         Pin newPin = new Pin();
         Board b = getBoard(username, boardname);
         if (null == b)

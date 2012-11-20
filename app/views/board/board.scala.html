@@ -3,21 +3,23 @@
 @board.getName()
 }
 @main(title, nav = "Board Page") {
-    <div class="board">
-        <h2>@board.getName()</h2>
-        <h3>@board.getCategory()</h3>
-        <p>The pins on this board:</p>
+    <div id="board">
+        <h3>Owner: @board.getCreator().getName()</h3>
+        <h2>@board.getCategory()</h2>
+        <a class="AddPin" href="@routes.BoardController.addPin(board.getId())">Add Pin</a>
         @displayPins(board.getPins())
+        <a class="AddPin" href="@routes.BoardController.addPin(board.getId())">Add Pin</a>
     </div>
 }
 
 
 @displayPins(pins: List[is.ru.honn.rupin.domain.Pin]) = {
-    @for(pin <- pins) {
-        <div class="pins">
-            <p>@pin.getDescription()</p>
-            <a href="@pin.getLink()">link</a>
-            <img src="@pin.getImage()" alt="pin Image"/>
+    @for((p,i) <- pins.zipWithIndex) {
+        <div class="pin @if(i%2==0){left}else{right}">
+            <img src="@p.getImage()" alt="pin Image"/>
+            <p>@p.getDescription()</p>
+            <a href="@p.getLink()">link</a>
+            <span>posted: @p.getCreated()</span>
         </div>
     }
 }

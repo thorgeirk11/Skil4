@@ -6,12 +6,15 @@ import is.ruframework.data.RuDataAccess;
 import java.util.List;
 
 /**
+ *
+ * An interface that maps to the ru_board table and provides certain interaction to the table.
+ *
  * Created with IntelliJ IDEA.
  * User: Sir.Thorgeir lap
  * Date: 16.10.2012
  * Time: 12:14
  *
- * @author Þorgeir Auðunn Karlsson.
+ * @author Thorgeir Audunn Karlsson and Gudny Bjork Gunnarsdottir.
  */
 public interface PinDataMapper extends RuDataAccess{
 

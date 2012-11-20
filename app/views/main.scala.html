@@ -5,6 +5,7 @@
     <head>
         <title>RuPin</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
     </head>
@@ -12,24 +13,21 @@
         <div class="topbar">
             <div class="fill">
                 <div class="container">
-                    <a class="brand" href="@routes.UserController.index()">RuPin</a>&nbsp;
-                           <a href="@routes.UserController.signUp()">Sign Up</a>&nbsp;
-                           <a href="@routes.UserController.login()">
-                            @if(ServiceController.getSessionUser() != null){
-                                LogOut
-                            } else {
-                                LogIn
-                            }
-                            </a>&nbsp;
+                    <a class="brand" href="@routes.UserController.index()">RuPin</a>
+                    <a href="@routes.UserController.signUp()">Sign Up</a>
+                    <a href="@routes.UserController.login()">
+                    @if(ServiceController.getSessionUser() != null){
+                        LogOut
+                    } else {
+                        LogIn
+                    }
+                    </a>
 
-                            @if(ServiceController.getSessionUser() != null){
-                                <a href="@routes.BoardController.boards()">Boards</a>&nbsp;
-                            }
+                    @if(ServiceController.getSessionUser() != null){
+                        <a href="@routes.BoardController.myBoards()">Boards</a>
+                        <h4>Welcome @ServiceController.getSessionUser().getName()</h3>
+                    }
                 </div>
-                @if(ServiceController.getSessionUser() != null){
-                    <h3>Welcome @ServiceController.getSessionUser().getName()</h3>
-                }
-
             </div>
         </div>
 

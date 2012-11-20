@@ -7,7 +7,16 @@ import java.sql.SQLException;
 import is.ru.honn.rupin.domain.Board;
 import is.ru.honn.rupin.domain.User;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-
+/**
+ * Maps a result set of a user to a class.
+ *
+ * Created with IntelliJ IDEA.
+ * User: Sir.Thorgeir lap
+ * Date: 16.10.2012
+ * Time: 19:03
+ *
+ * @author Thorgeir Audunn Karlsson and Gudny Bjork Gunnarsdottir.
+ */
 public class UserRowMapper implements ParameterizedRowMapper<User> {
     /**
      * Takes in a result set and creates a new user and picks out the data from the result set and fills the

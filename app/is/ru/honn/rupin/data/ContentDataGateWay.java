@@ -9,12 +9,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
+ *
+ * A class that opens and closes a connection to the database with a corresponding dataSource.
+ *
  * Created with IntelliJ IDEA.
  * User: Sir.Thorgeir lap
  * Date: 16.10.2012
  * Time: 13:00
  *
- * @author Þorgeir Auðunn Karlsson.
+ * @author Thorgeir Audunn Karlsson and Gudny Bjork Gunnarsdottir.
  */
 public class ContentDataGateWay extends RuData {
     protected Connection con;

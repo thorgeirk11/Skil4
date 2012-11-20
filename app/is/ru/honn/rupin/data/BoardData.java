@@ -15,12 +15,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ *
+ * A class that implements the BoardDataGateway. Stores or receives data from the ru_boards table.
+ *
  * Created with IntelliJ IDEA.
  * User: Sir.Thorgeir lap
  * Date: 16.10.2012
  * Time: 19:03
  *
- * @author Þorgeir Auðunn Karlsson.
+ * @author Thorgeir Audunn Karlsson and Gudny Bjork Gunnarsdottir.
  */
 public class BoardData extends ContentDataGateWay implements BoardDataGateway {
     public BoardData() {
@@ -31,7 +34,7 @@ public class BoardData extends ContentDataGateWay implements BoardDataGateway {
     }
 
     /**
-     * Adds a board to the table ru_user in the db if the board doesn't already exists.
+     * Adds a board to the table ru_board in the db if the board doesn't already exists.
      * Returns the id of the board if it was successfully inserted.
      *
      * @param board, the board to be added to the db

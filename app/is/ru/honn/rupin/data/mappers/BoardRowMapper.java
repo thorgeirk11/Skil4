@@ -13,6 +13,16 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 import javax.sql.DataSource;
 
+/**
+ * Maps a result set of a board to a class.
+ *
+ * Created with IntelliJ IDEA.
+ * User: Sir.Thorgeir lap
+ * Date: 16.10.2012
+ * Time: 19:03
+ *
+ * @author Thorgeir Audunn Karlsson and Gudny Bjork Gunnarsdottir.
+ */
 public class BoardRowMapper extends RuData implements ParameterizedRowMapper<Board> {
     public BoardRowMapper() {
     }
